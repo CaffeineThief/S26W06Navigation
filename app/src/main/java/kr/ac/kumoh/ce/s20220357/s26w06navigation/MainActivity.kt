@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -67,6 +68,10 @@ fun MainScreen() {
             entryDecorators = listOf(
                 // Add the default decorators for managing scenes and saving state
                 rememberSaveableStateHolderNavEntryDecorator(), // 외우지 말 것 너무 김
+
+                // Then add the view model store decorator
+                // 이걸 안쓰면 처음 한 번만 viewmodel 생성
+                rememberViewModelStoreNavEntryDecorator() // 시험에 안나옴
             ),
             entryProvider = entryProvider {
                 entry<PokemonRoute.PokemonList> {
@@ -107,11 +112,17 @@ fun PokemonListScreen(
 @Composable
 fun PokemonDetailScreen(
     pokemonId: Int,
-    viewModel: PokemonDetailViewModel = viewModel()
+    viewModel: PokemonDetailViewModel = viewModel {
+        PokemonDetailViewModel(pokemonId)
+    }, // 후행 람다
 ) {
-    val pokemon = viewModel.getPokemonById(pokemonId)
+//    val pokemon = viewModel.getPokemonById(pokemonId)
 
-    pokemon?.let {
-        Text(it.info)
-    }
+//    pokemon?.let {
+//        Text(it.info)
+//    }
+
+    val pokemon by viewModel.pokemon.collectAsStateWithLifecycle()
+
+    Text(pokemon.name)
 }
