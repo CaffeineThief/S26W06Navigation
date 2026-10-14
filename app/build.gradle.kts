@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.4.21"
 }
 
 android {
@@ -51,4 +52,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    // Navigation 3
+    // https://developer.android.com/jetpack/androidx/releases/navigation3?hl=ko
+    val nav3Version = "1.2.0"
+    implementation("androidx.navigation3:navigation3-runtime:$nav3Version")
+    implementation("androidx.navigation3:navigation3-ui:$nav3Version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-navigation3:2.11.0")
+    implementation("androidx.compose.material3.adaptive:adaptive-navigation3:1.3.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
 }
