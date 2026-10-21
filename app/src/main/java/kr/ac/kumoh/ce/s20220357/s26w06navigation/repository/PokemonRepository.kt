@@ -1,6 +1,6 @@
 package kr.ac.kumoh.ce.s20220357.s26w06navigation.repository
 
-import kr.ac.kumoh.ce.s20220357.s26w06navigation.Pokemon
+import kr.ac.kumoh.ce.s20220357.s26w06navigation.model.Pokemon
 
 interface PokemonRepository {
     suspend fun getAllPokemon(): List<Pokemon>
