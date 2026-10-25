@@ -79,7 +79,11 @@ class ApiPokemonRepository(
             name = speciesDto?.koreanName ?: dto.name,
             type = types,
             info = speciesDto?.koreanInfo.orEmpty(),
-            image = dto.sprites.frontDefault ?: ""
+            image = dto.sprites.frontDefault ?: "",
+            backimage = dto.sprites.backDefault ?: "",
+            hp = dto.stats
+                .firstOrNull { it.stat.name == "hp" }
+                ?.baseStat,
         )
     }
 }

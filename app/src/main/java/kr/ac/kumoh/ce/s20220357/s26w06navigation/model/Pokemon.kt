@@ -6,4 +6,6 @@ data class Pokemon(
     val type: String,
     val info: String,
     val image: String,
+    val backimage: String? = null,
+    val hp: Int? = null,
     )
